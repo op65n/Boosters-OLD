@@ -1,0 +1,52 @@
+message:
+  invalid-booster-type: [
+      "[&c&l| &cInvalid Booster!](hover: &fAvailable Types: &r\n%boosters_booster-types_&b&l\\| &7{type}&f, \n%)"
+  ]
+  un-applicable-booster-type: [
+      "[&c&l| &cUn-Applicable Booster!](hover: &fA booster of this type is already active!)"
+  ]
+  activated-booster: [
+      "[&a&l| &aActivated Booster!](hover: &fSuccessfully activated a &b{formatted-type} &fBooster\n&fwith the duration of &b{duration}&f,\n&fmagnitude of &b{magnitude}x&f, and a &b{scope} &fscope.)"
+  ]
+  received-booster-voucher: [
+      "[&e&l| &eReceived Booster Voucher!](hover: &fYou have been given a &b{formatted-type} &fBooster Voucher.)"
+  ]
+  active-boosters: [
+      "[&b&l| &bActive Boosters](hover: &fClick to view all active boosters)"
+  ]
+  booster-expired: [
+      "[&c&l| &cBooster Expired!](hover: &b{formatted-type} &fBooster expired.)"
+  ]
+  cancelled-booster: [
+      "[&c&l| &cCancelled Booster!](hover: &b{formatted-type} &fBooster has been cancelled!)"
+  ]
+
+booster-message:
+  shop-sell-message: [
+      "[&a&l| &aSell Booster Bonus! &7(+${amount})](hover: &b&l\\| &fOwner: &b{owner}\n&b&l\\| &fDuration: &b{duration}\n&b&l\\| &fMagnitude: &b{magnitude}x)"
+  ]
+  shop-buy-message: [
+      "[&a&l| &aDiscount Booster Bonus! &7(+${amount})](hover: &b&l\\| &fOwner: &b{owner}\n&b&l\\| &fDuration: &b{duration}\n&b&l\\| &fMagnitude: &b{magnitude}x)"
+  ]
+  experience-gain-message: [
+      "[&a&l| &aMcMMO Gain Booster Bonus! &7(+{amount} XP)](hover: &b&l\\| &fOwner: &b{owner}\n&b&l\\| &fDuration: &b{duration}\n&b&l\\| &fMagnitude: &b{magnitude}x)"
+  ]
+
+booster-descriptions:
+  SELL: "&fa shop oriented booster which multiplies;&fshop sells by the given booster magnitude"
+  DISCOUNT: "&fa shop oriented booster which refunds shop;&fpurchases by the given booster magnitude"
+  CROP_GROWTH: "&fa crop growth oriented booster;&fwhich speeds up crop growth times"
+  MOB_DROPS: "&fa drops oriented booster which;&fincreases drops gained by killed mobs"
+  MCMMO_GAIN: "&fa mcmmo oriented booster which;&fincreases mcmmo experience gained"
+
+booster-voucher:
+  material: NAME_TAG
+  display: "&b{formatted-type} Booster"
+  lore:
+    - " &7&l| &fMagnitude: &b{magnitude}x"
+    - " &7&l| &fDuration: &b{duration}"
+    - " &7&l| &fScope: &b{scope}"
+    - ""
+    - "&f%boosters_booster-description;{type}; &7&l| %"
+    - ""
+    - "&7&oClick to redeem this booster"

@@ -1,0 +1,41 @@
+menu-title: "&8| Active Boosters ({active-boosters})"
+menu-size: 45
+page-size: 21
+booster-item:
+  material: NAME_TAG
+  display: "&b{formatted-type} Booster"
+  lore:
+    - " &7&l| &fMagnitude: &b{magnitude}x"
+    - " &7&l| &fDuration: &b{duration}"
+    - " &7&l| &fScope: &b{scope}"
+    - " &7&l| &fOwner: &b{owner}"
+    - ""
+    - "&f%boosters_booster-description;{type}; &7&l| %"
+    - ""
+  owner-lore-addition:
+    - ""
+    - " &7&l| &fActions"
+    - "  &8* &fRight-Click: &7Cancel this booster"
+items:
+  filler:
+    material: GRAY_STAINED_GLASS_PANE
+    display: "&r"
+    slots: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 37, 38, 42, 43, 44 ]
+  next-page:
+    action: NEXT_PAGE
+    material: ARROW
+    data: 0
+    display: "&b| &7Next Page"
+    slots: [ 41 ]
+  previous-page:
+    action: PREVIOUS_PAGE
+    slots: [ 39 ]
+    material: ARROW
+    data: 0
+    display: "&7Previous Page &b|"
+  back-button:
+    action: CLOSE
+    slots: [ 40 ]
+    material: BARRIER
+    data: 0
+    display: "&b| &7Main Menu &b|"
