@@ -2,11 +2,20 @@ package com.splicegames.sgboosters.booster;
 
 public enum BoosterType {
 
-    SELL,
+    // Shop GUI Plus
+    SHOP_GUI_PLUS_SELL,
+    SHOP_GUI_PLUS_DISCOUNT,
+
+    // Grief Prevention
     CROP_GROWTH,
     MOB_DROPS,
+
+    // McMMO
     MCMMO_GAIN,
-    DISCOUNT,
+
+    // Vanilla
+    EXPERIENCE_GAIN,
+    BLOCK_BREAK,
     ;
 
     public static BoosterType getNullable(final String input) {

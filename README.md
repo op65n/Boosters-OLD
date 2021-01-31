@@ -43,12 +43,12 @@ The plugin as of right now provides `5` different Booster types, however is desi
 that more can easily be added in the future. <br>
 Display format: `BoosterType (Required Plugin)`
 
-- `SELL` (ShopGUIPlus) <br>
+- `SHOP_GUI_PLUS_SELL` (ShopGUIPlus) <br>
     *Description:* Is triggered when a user successfully sells items to the shop, <br>
     multiplies the gained amount of money with the given booster magnitude.
 
 
-- `DISCOUNT` (ShopGUIPlus) <br>
+- `SHOP_GUI_PLUS_DISCOUNT` (ShopGUIPlus) <br>
     *Description:* Is triggered when a user successfully purchases items from the shop, <br>
     refunds a percentage of the purchase cost depending on the booster magnitude.
   
@@ -58,6 +58,11 @@ Display format: `BoosterType (Required Plugin)`
     by the given booster magnitude.
 
 
+- `EXPERIENCE_GAIN` (None) <br>
+    *Description:* Multiplies the gained experience by the given booster magnitude <br>
+    (vanilla experience).
+  
+
 - `CROP_GROWTH` (GriefPrevention) <br>
     *Description:* Speeds up crop growth within player claims by the given booster magnitude, <br>
     from the amount of active boosters: `1 Booster -> 2x, 2 Boosters -> 3x`
@@ -66,3 +71,8 @@ Display format: `BoosterType (Required Plugin)`
 - `MOB_DROPS` (GriefPrevention) <br>
     *Description:* Increases the mob drops gained from mobs within claims depending on the <br>
     given booster magnitude: `< 1.15 -> +1, > 1.5 -> +2` 
+  
+
+- `BLOCK_BREAK` (None) <br>
+    *Description:* Multiplies mined blocks if a certain chance (`magnitude * 1000 <= 75`) <br>
+    is met. Only increases by 1 block. (The lower the magnitude, the higher the chance).

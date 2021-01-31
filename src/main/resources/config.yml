@@ -28,16 +28,21 @@ booster-message:
   shop-buy-message: [
       "[&a&l| &aDiscount Booster Bonus! &7(+${amount})](hover: &b&l\\| &fOwner: &b{owner}\n&b&l\\| &fDuration: &b{duration}\n&b&l\\| &fMagnitude: &b{magnitude}x)"
   ]
-  experience-gain-message: [
+  mcmmo-experience-gain-message: [
       "[&a&l| &aMcMMO Gain Booster Bonus! &7(+{amount} XP)](hover: &b&l\\| &fOwner: &b{owner}\n&b&l\\| &fDuration: &b{duration}\n&b&l\\| &fMagnitude: &b{magnitude}x)"
+  ]
+  experience-gain-message: [
+      "[&a&l| &aExperience Gain Booster Bonus! &7(+{amount} XP)](hover: &b&l\\| &fOwner: &b{owner}\n&b&l\\| &fDuration: &b{duration}\n&b&l\\| &fMagnitude: &b{magnitude}x)"
   ]
 
 booster-descriptions:
-  SELL: "&fa shop oriented booster which multiplies;&fshop sells by the given booster magnitude"
-  DISCOUNT: "&fa shop oriented booster which refunds shop;&fpurchases by the given booster magnitude"
+  SHOP_GUI_PLUS_SELL: "&fa shop oriented booster which multiplies;&fshop sells by the given booster magnitude"
+  SHOP_GUI_PLUS_DISCOUNT: "&fa shop oriented booster which refunds shop;&fpurchases by the given booster magnitude"
   CROP_GROWTH: "&fa crop growth oriented booster;&fwhich speeds up crop growth times"
   MOB_DROPS: "&fa drops oriented booster which;&fincreases drops gained by killed mobs"
   MCMMO_GAIN: "&fa mcmmo oriented booster which;&fincreases mcmmo experience gained"
+  EXPERIENCE_GAIN: "&fa vanilla oriented booster which;&fincreases experience gained"
+  SHOP_KEEPER_TRADE_DISCOUNT: "&fdecreases the amount of items required;&fto trade with villagers"
 
 booster-voucher:
   material: NAME_TAG

@@ -127,7 +127,7 @@ public final class BoosterListMenu {
                     lore
             ), event -> {
                 final Player player = (Player) event.getWhoClicked();
-                if (player.getUniqueId() != holder.getOwner().getUniqueId()) return;
+                if (!player.getUniqueId().toString().equalsIgnoreCase(holder.getOwner().getUniqueId().toString())) return;
 
                 plugin.getBoosterStorage().removeBooster(holder);
 

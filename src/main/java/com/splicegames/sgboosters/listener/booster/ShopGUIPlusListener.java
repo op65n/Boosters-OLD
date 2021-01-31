@@ -21,7 +21,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import java.text.DecimalFormat;
 import java.util.Set;
 
-public final class ShopSellListener extends ListenerRequirement {
+public final class ShopGUIPlusListener extends ListenerRequirement {
 
     private final DecimalFormat format = new DecimalFormat("###.##");
     private final FileConfiguration configuration;
@@ -29,7 +29,7 @@ public final class ShopSellListener extends ListenerRequirement {
 
     private Economy economy;
 
-    public ShopSellListener(final BoostersPlugin plugin) {
+    public ShopGUIPlusListener(final BoostersPlugin plugin) {
         this.configuration = plugin.getConfig();
         this.storage = plugin.getBoosterStorage();
     }
@@ -52,7 +52,7 @@ public final class ShopSellListener extends ListenerRequirement {
     }
 
     private void manageSellBooster(final Player player, final ShopTransactionResult result) {
-        final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.SELL, player.getUniqueId());
+        final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.SHOP_GUI_PLUS_SELL, player.getUniqueId());
 
         holders.forEach(holder -> {
             final BoosterContent content = holder.getContent();
@@ -72,7 +72,7 @@ public final class ShopSellListener extends ListenerRequirement {
 
 
     private void manageBuyBooster(final Player player, final ShopTransactionResult result) {
-        final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.DISCOUNT, player.getUniqueId());
+        final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.SHOP_GUI_PLUS_DISCOUNT, player.getUniqueId());
 
         holders.forEach(holder -> {
             final BoosterContent content = holder.getContent();
