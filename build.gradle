@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.splicegames.sgboosters"
-version = "1.0.5-Alpha"
+version = "1.0.6-Release"
 
 repositories {
 	flatDir {
@@ -40,6 +40,8 @@ dependencies {
 }
 
 shadowJar {
+	relocate "me.mattstudios.mf", "${project.group}.library.mf"
+
 	archiveFileName.set("SGBoosters-${project.version}.jar")
 }
 

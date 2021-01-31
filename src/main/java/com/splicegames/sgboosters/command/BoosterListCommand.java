@@ -22,7 +22,8 @@ public final class BoosterListCommand extends CommandBase {
     @Default
     @Permission("sgboosters.command.list")
     public void onListCommand(final Player player) {
-        final PaginatedGui menu = new BoosterListMenu(this.plugin, player).getMenu();
+        final BoosterListMenu listMenu = new BoosterListMenu(this.plugin, player);
+        final PaginatedGui menu = listMenu.getMenu();
 
         if (menu == null) {
             this.plugin.getLogger().log(Level.WARNING, String.format(
@@ -30,6 +31,8 @@ public final class BoosterListCommand extends CommandBase {
             ));
             return;
         }
+
         menu.open(player);
+        listMenu.initializeUpdateInterval();
     }
 }

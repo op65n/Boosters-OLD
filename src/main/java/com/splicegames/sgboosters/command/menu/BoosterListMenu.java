@@ -19,6 +19,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -160,6 +161,20 @@ public final class BoosterListMenu {
 
         item.setItemMeta(meta);
         return item;
+    }
+
+    public void initializeUpdateInterval() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (menu.getInventory().getViewers().isEmpty()) {
+                    cancel();
+                    return;
+                }
+
+                menu.update();
+            }
+        }.runTaskTimer(plugin, 20L, 20L);
     }
 
     public PaginatedGui getMenu() {
