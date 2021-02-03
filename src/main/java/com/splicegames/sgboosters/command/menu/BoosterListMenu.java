@@ -22,10 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
 public final class BoosterListMenu {
@@ -91,6 +88,13 @@ public final class BoosterListMenu {
             gui.setItem(itemSection.getIntegerList("slots"), guiItem);
         }
 
+        setBoosterItems(gui, boosters).forEach(gui::addItem);
+
+        return gui;
+    }
+
+    private Set<GuiItem> setBoosterItems(final PaginatedGui gui, final Set<BoosterHolder> boosters) {
+        final Set<GuiItem> boosterItems = new HashSet<>();
         final ConfigurationSection boostersSection = configuration.getConfigurationSection("booster-item");
         if (boostersSection == null) return null;
 
@@ -146,10 +150,10 @@ public final class BoosterListMenu {
                 gui.close(player);
             });
 
-            gui.addItem(item);
+            boosterItems.add(item);
         }
 
-        return gui;
+        return boosterItems;
     }
 
     private ItemStack constructItem(final Material material, final String display, final List<String> lore) {
@@ -168,11 +172,12 @@ public final class BoosterListMenu {
             @Override
             public void run() {
                 if (menu.getInventory().getViewers().isEmpty()) {
+                    System.out.println("No viewers, cancelled updating");
                     cancel();
                     return;
                 }
 
-                menu.update();
+                setBoosterItems(menu, plugin.getBoosterStorage().getBoostersApplicableToUser(player.getUniqueId())).forEach(menu::addItem);
             }
         }.runTaskTimer(plugin, 20L, 20L);
     }

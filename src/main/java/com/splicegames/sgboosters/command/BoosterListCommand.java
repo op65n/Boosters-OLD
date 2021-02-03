@@ -33,6 +33,6 @@ public final class BoosterListCommand extends CommandBase {
         }
 
         menu.open(player);
-        listMenu.initializeUpdateInterval();
+        //listMenu.initializeUpdateInterval();
     }
 }
