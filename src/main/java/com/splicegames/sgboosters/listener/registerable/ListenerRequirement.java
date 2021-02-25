@@ -7,5 +7,7 @@ public abstract class ListenerRequirement implements Listener {
 
     public abstract String getRequiredPluginName();
 
+    public abstract String getClassIdentifier();
+
     public void initializeRequirements() {}
 }

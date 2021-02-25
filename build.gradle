@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.splicegames.sgboosters"
-version = "1.0.7-Release"
+version = "1.0.8-Release"
 
 repositories {
 	flatDir {
@@ -32,12 +32,13 @@ dependencies {
 	implementation "me.mattstudios:mf-msg-bukkit:2.0.2"
 
 	compileOnly name: "mcMMO_3"
+	compileOnly name: "Factions"
 
 	compileOnly "com.github.TechFortress:GriefPrevention:16.17.0"
 	compileOnly("com.github.MilkBowl:VaultAPI:1.7") { exclude group: "org.bukkit" }
 	compileOnly("com.github.brcdev-minecraft:shopgui-api:1.2.0") { exclude group: "org.spigotmc" }
 	compileOnly "me.clip:placeholderapi:2.10.9"
-	compileOnly "com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT"
+	compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
 }
 
 shadowJar {

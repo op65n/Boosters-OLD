@@ -2,7 +2,13 @@ package com.splicegames.sgboosters.listener.registerable;
 
 import com.splicegames.sgboosters.BoostersPlugin;
 import com.splicegames.sgboosters.booster.data.BoosterStorage;
-import com.splicegames.sgboosters.listener.booster.*;
+import com.splicegames.sgboosters.listener.booster.BlockBreakListener;
+import com.splicegames.sgboosters.listener.booster.ExperienceGainListener;
+import com.splicegames.sgboosters.listener.booster.griefprevention.CropGrowthListener;
+import com.splicegames.sgboosters.listener.booster.griefprevention.EntityDeathListener;
+import com.splicegames.sgboosters.listener.booster.griefprevention.FactionCropGrowthListener;
+import com.splicegames.sgboosters.listener.booster.mcmmo.McMMOGainListener;
+import com.splicegames.sgboosters.listener.booster.shopguiplus.ShopGUIPlusListener;
 import com.splicegames.sgboosters.listener.notification.PlayerJoinListener;
 import com.splicegames.sgboosters.listener.voucher.VoucherUseListener;
 import com.splicegames.sgboosters.registry.Registerable;
@@ -21,6 +27,7 @@ public final class ListenerRegisterable implements Registerable {
         final Logger logger = plugin.getLogger();
 
         Stream.of(
+                new FactionCropGrowthListener(boosterStorage),
                 new CropGrowthListener(boosterStorage),
                 new EntityDeathListener(boosterStorage),
                 new McMMOGainListener(plugin),
@@ -33,8 +40,8 @@ public final class ListenerRegisterable implements Registerable {
         ).forEach(it -> {
             if (!it.isPluginInstalled()) {
                 logger.log(Level.INFO, String.format(
-                        "Skipping %s registration, as plugin %s is not installed.",
-                        it.getClass().getName().replace(".", " ").split(" ")[5], it.getRequiredPluginName()
+                        "Skipping \"%s\" registration, as plugin %s is not installed.",
+                        it.getClassIdentifier(), it.getRequiredPluginName()
                 ));
                 return;
             }

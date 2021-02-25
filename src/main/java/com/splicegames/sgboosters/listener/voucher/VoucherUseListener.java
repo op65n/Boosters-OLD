@@ -48,4 +48,9 @@ public final class VoucherUseListener extends ListenerRequirement {
     public String getRequiredPluginName() {
         return "None";
     }
+
+    @Override
+    public String getClassIdentifier() {
+        return "Voucher Use Listener";
+    }
 }

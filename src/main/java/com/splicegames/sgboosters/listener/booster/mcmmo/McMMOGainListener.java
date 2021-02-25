@@ -1,4 +1,4 @@
-package com.splicegames.sgboosters.listener.booster;
+package com.splicegames.sgboosters.listener.booster.mcmmo;
 
 import com.github.frcsty.frozenactions.util.Replace;
 import com.gmail.nossr50.events.experience.McMMOPlayerXpGainEvent;
@@ -62,5 +62,10 @@ public final class McMMOGainListener extends ListenerRequirement {
     @Override
     public boolean isPluginInstalled() {
         return Bukkit.getServer().getPluginManager().getPlugin("mcMMO") != null;
+    }
+
+    @Override
+    public String getClassIdentifier() {
+        return "McMMO Gain Listener";
     }
 }

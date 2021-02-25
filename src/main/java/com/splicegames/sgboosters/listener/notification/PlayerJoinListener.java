@@ -35,4 +35,8 @@ public final class PlayerJoinListener extends ListenerRequirement {
         return true;
     }
 
+    @Override
+    public String getClassIdentifier() {
+        return "Player Join Listener";
+    }
 }

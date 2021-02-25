@@ -60,4 +60,9 @@ public final class ExperienceGainListener extends ListenerRequirement {
     public String getRequiredPluginName() {
         return "None";
     }
+
+    @Override
+    public String getClassIdentifier() {
+        return "Experience Gain Listener";
+    }
 }

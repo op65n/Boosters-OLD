@@ -3,4 +3,4 @@ version: @version@
 main: com.splicegames.sgboosters.BoostersPlugin
 api-version: 1.16
 author: Frcsty
-softdepend: ["PlaceholderAPI", "GriefPrevention", "ShopGUIPlus", "Vault", "mcMMO"]
+softdepend: ["PlaceholderAPI", "GriefPrevention", "ShopGUIPlus", "Vault", "mcMMO", "Factions"]

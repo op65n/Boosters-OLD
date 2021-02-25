@@ -1,4 +1,4 @@
-package com.splicegames.sgboosters.listener.booster;
+package com.splicegames.sgboosters.listener.booster.shopguiplus;
 
 import com.github.frcsty.frozenactions.util.Replace;
 import com.splicegames.sgboosters.BoostersPlugin;
@@ -94,7 +94,7 @@ public final class ShopGUIPlusListener extends ListenerRequirement {
         final RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServicesManager().getRegistration(Economy.class);
 
         if (economyProvider != null) {
-            this.economy = (Economy) economyProvider.getProvider();
+            this.economy = economyProvider.getProvider();
             return;
         }
 
@@ -107,5 +107,10 @@ public final class ShopGUIPlusListener extends ListenerRequirement {
 
     public String getRequiredPluginName() {
         return "ShopGUIPlus";
+    }
+
+    @Override
+    public String getClassIdentifier() {
+        return "Shop GUI Plus Listener";
     }
 }

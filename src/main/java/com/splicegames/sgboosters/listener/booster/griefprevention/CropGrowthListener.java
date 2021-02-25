@@ -1,4 +1,4 @@
-package com.splicegames.sgboosters.listener.booster;
+package com.splicegames.sgboosters.listener.booster.griefprevention;
 
 import com.splicegames.sgboosters.booster.BoosterType;
 import com.splicegames.sgboosters.booster.data.BoosterStorage;
@@ -65,5 +65,10 @@ public final class CropGrowthListener extends ListenerRequirement {
 
     public String getRequiredPluginName() {
         return "GriefPrevention";
+    }
+
+    @Override
+    public String getClassIdentifier() {
+        return "Crop Growth Listener";
     }
 }

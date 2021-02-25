@@ -6,9 +6,9 @@ import com.splicegames.sgboosters.command.registerable.CommandRegisterable;
 import com.splicegames.sgboosters.listener.registerable.ListenerRegisterable;
 import com.splicegames.sgboosters.placeholder.BoosterPlaceholders;
 import com.splicegames.sgboosters.registry.Registerable;
+import com.splicegames.sgboosters.util.File;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,14 +19,14 @@ public final class BoostersPlugin extends JavaPlugin {
     private final BoosterRunnable boosterRunnable = new BoosterRunnable();
 
     private final Set<Registerable> registerableSet = new HashSet<>(Arrays.asList(
-        new ListenerRegisterable(), new CommandRegisterable()
+            new ListenerRegisterable(), new CommandRegisterable()
     ));
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
 
-        saveResources(
+        File.saveResources(
                 "menu/booster-list-menu.yml"
         );
 
@@ -47,13 +47,6 @@ public final class BoostersPlugin extends JavaPlugin {
 
     public BoosterStorage getBoosterStorage() {
         return this.boosterStorage;
-    }
-
-    private void saveResources(final String... paths) {
-        Arrays.stream(paths).forEach(it -> {
-            if (!(new File(getDataFolder(), it)).exists())
-                saveResource(it, false);
-        });
     }
 
 }

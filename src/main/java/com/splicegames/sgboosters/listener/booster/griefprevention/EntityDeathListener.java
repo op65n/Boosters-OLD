@@ -1,4 +1,4 @@
-package com.splicegames.sgboosters.listener.booster;
+package com.splicegames.sgboosters.listener.booster.griefprevention;
 
 import com.splicegames.sgboosters.booster.BoosterType;
 import com.splicegames.sgboosters.booster.component.BoosterContent;
@@ -75,5 +75,10 @@ public final class EntityDeathListener extends ListenerRequirement {
 
     public String getRequiredPluginName() {
         return "GriefPrevention";
+    }
+
+    @Override
+    public String getClassIdentifier() {
+        return "Entity Death Listener";
     }
 }
