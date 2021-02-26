@@ -2,21 +2,32 @@ package com.splicegames.sgboosters.util.builder;
 
 import com.github.frcsty.frozenactions.util.Color;
 import com.github.frcsty.frozenactions.util.Replace;
+import com.splicegames.sgboosters.BoostersPlugin;
 import com.splicegames.sgboosters.booster.BoosterType;
 import com.splicegames.sgboosters.booster.component.BoosterTarget;
 import com.splicegames.sgboosters.util.time.TimeDisplay;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.mattstudios.mfgui.gui.components.ItemNBT;
+import net.kyori.adventure.text.Component;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public final class BoosterVoucherBuilder {
+
+    private static final BoostersPlugin PLUGIN = JavaPlugin.getPlugin(BoostersPlugin.class);
 
     private final FileConfiguration configuration;
     private Material material;
@@ -50,17 +61,25 @@ public final class BoosterVoucherBuilder {
         return this;
     }
 
+    public ItemStack build(String preset) {
+        if (preset == null) preset = "common";
+        final ConfigurationSection section;
 
-    public ItemStack build() {
-        final ConfigurationSection section = this.configuration.getConfigurationSection("booster-voucher");
+        if (this.configuration.getConfigurationSection(String.format("booster-voucher-preset.%s", preset)) != null) {
+            section = this.configuration.getConfigurationSection(String.format("booster-voucher-preset.%s", preset));
+        } else {
+            section = this.configuration.getConfigurationSection("booster-voucher-preset.common");
+        }
+
         ItemStack itemStack = new ItemStack(this.material);
         final ItemMeta meta = itemStack.getItemMeta();
+
         if (section != null) {
-            meta.setDisplayName(Color.translate(Replace.replaceString(
+            meta.displayName(Component.text(Color.translate(Replace.replaceString(
                     section.getString("display"),
                     "{formatted-type}", WordUtils.capitalize(this.type.name().replace("_", " ").toLowerCase()),
                     "{type}", this.type.name()
-            )));
+            ))));
 
             final StringBuilder builder = new StringBuilder();
             for (final String line : section.getStringList("lore")) {
@@ -74,7 +93,40 @@ public final class BoosterVoucherBuilder {
                 )).append("\n");
             }
 
-            meta.setLore(Arrays.asList(builder.toString().split("\n")));
+            meta.lore(Arrays.stream(builder.toString().split("\n")).map(Component::text).collect(Collectors.toList()));
+
+            final ConfigurationSection enchantmentsSection = section.getConfigurationSection("enchantments");
+            if (enchantmentsSection != null) {
+                for (final String key : enchantmentsSection.getKeys(false)) {
+                    final Enchantment enchantment = Enchantment.getByKey(new NamespacedKey(PLUGIN, key));
+
+                    if (enchantment == null) {
+                        PLUGIN.getLogger().log(Level.WARNING, String.format(
+                                "Enchantment for input '%s' is not valid!", key
+                        ));
+                        continue;
+                    }
+
+                    final int level = enchantmentsSection.getInt(key);
+                    meta.addEnchant(enchantment, level, false);
+                }
+            }
+
+            final ConfigurationSection flagsSection = section.getConfigurationSection("flags");
+            if (flagsSection != null) {
+                for (final String flagString : section.getStringList("flags")) {
+                    final Optional<ItemFlag> flag = Arrays.stream(ItemFlag.values()).filter(itemFlag -> itemFlag.name().equalsIgnoreCase(flagString)).findFirst();
+
+                    if (flag.isEmpty()) {
+                        PLUGIN.getLogger().log(Level.WARNING, String.format(
+                                "ItemFlag for input '%s' is not valid!", flagString
+                        ));
+                        continue;
+                    }
+
+                    meta.addItemFlags(flag.get());
+                }
+            }
         }
 
         itemStack.setItemMeta(meta);
@@ -82,6 +134,7 @@ public final class BoosterVoucherBuilder {
         itemStack = ItemNBT.setNBTTag(itemStack, "booster-target", this.target);
         itemStack = ItemNBT.setNBTTag(itemStack, "booster-magnitude", String.valueOf(this.magnitude));
         itemStack = ItemNBT.setNBTTag(itemStack, "booster-duration", String.valueOf(this.duration));
+
         return itemStack;
     }
 

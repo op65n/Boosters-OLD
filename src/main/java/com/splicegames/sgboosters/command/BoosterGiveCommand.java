@@ -28,7 +28,7 @@ public final class BoosterGiveCommand extends CommandBase {
 
     @SubCommand("give")
     @Permission("sgboosters.command.booster.give")
-    public void onGiveCommand(final CommandSender sender, final Player target, @Completion("#boosters") final String typeString, @Completion("#targets") final String targetString, final Double magnitude, final Long duration) {
+    public void onGiveCommand(final CommandSender sender, final Player target, @Completion("#boosters") final String typeString, @Completion("#targets") final String targetString, final Double magnitude, final Long duration, final String preset) {
         final BoosterType type = BoosterType.getNullable(typeString);
 
         if (type == null) {
@@ -44,7 +44,7 @@ public final class BoosterGiveCommand extends CommandBase {
                 .ofType(type)
                 .ofTarget(targetString)
                 .ofContents(magnitude, duration)
-                .build();
+                .build(preset);
 
         target.getInventory().addItem(item);
         Message.send(target, Replace.replaceList(

@@ -140,7 +140,7 @@ public final class BoosterListMenu {
                         .ofType(holder.getType())
                         .ofTarget(holder.isPersonal() ? holder.getOwner().getName() : "ALL")
                         .ofContents(content.getMagnitude(), content.getDuration())
-                        .build();
+                        .build(null);
 
                 player.getInventory().addItem(voucherItem);
                 Message.send(player, Replace.replaceList(
