@@ -5,6 +5,7 @@ import com.splicegames.sgboosters.booster.BoosterType;
 import com.splicegames.sgboosters.command.BoosterGiveCommand;
 import com.splicegames.sgboosters.command.BoosterListCommand;
 import com.splicegames.sgboosters.registry.Registerable;
+import com.splicegames.sgboosters.util.booster.TypeRegistry;
 import me.mattstudios.mf.base.CommandManager;
 import me.mattstudios.mf.base.CompletionHandler;
 import org.bukkit.Bukkit;
@@ -27,7 +28,11 @@ public final class CommandRegisterable implements Registerable {
     }
 
     private void assignCompletions(final CompletionHandler completionHandler) {
-        completionHandler.register("#boosters", resolver -> Arrays.stream(BoosterType.values()).map(Enum::name).collect(Collectors.toList()));
+        completionHandler.register("#boosters", resolver -> Arrays.stream(BoosterType.values())
+                .filter(TypeRegistry::isEnabled)
+                .map(Enum::name)
+                .collect(Collectors.toList()));
+
         completionHandler.register("#targets", resolver -> {
             final List<String> result = Bukkit.getOnlinePlayers().stream().map(OfflinePlayer::getName).collect(Collectors.toList());
             result.add("ALL");

@@ -42,7 +42,14 @@ booster-descriptions:
   MOB_DROPS: "&fa drops oriented booster which;&fincreases drops gained by killed mobs"
   MCMMO_GAIN: "&fa mcmmo oriented booster which;&fincreases mcmmo experience gained"
   EXPERIENCE_GAIN: "&fa vanilla oriented booster which;&fincreases experience gained"
-  SHOP_KEEPER_TRADE_DISCOUNT: "&fdecreases the amount of items required;&fto trade with villagers"
+
+enabled-types:
+  SHOP_GUI_PLUS_SELL: # Discount combined with this one
+  #CROP_GROWTH:
+  MOB_DROPS:
+  MCMMO_GAIN:
+  EXPERIENCE_GAIN:
+  #BLOCK_BREAK:
 
 booster-voucher-preset:
   common:

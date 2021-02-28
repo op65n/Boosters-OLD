@@ -12,6 +12,7 @@ import com.splicegames.sgboosters.listener.booster.shopguiplus.ShopGUIPlusListen
 import com.splicegames.sgboosters.listener.notification.PlayerJoinListener;
 import com.splicegames.sgboosters.listener.voucher.VoucherUseListener;
 import com.splicegames.sgboosters.registry.Registerable;
+import com.splicegames.sgboosters.util.booster.TypeRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -45,6 +46,9 @@ public final class ListenerRegisterable implements Registerable {
                 ));
                 return;
             }
+
+            if (!TypeRegistry.isEnabled(it.getType())) return;
+
             it.initializeRequirements();
             pluginManager.registerEvents(it, plugin);
         });

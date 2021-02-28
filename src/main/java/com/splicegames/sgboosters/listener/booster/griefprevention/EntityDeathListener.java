@@ -81,4 +81,9 @@ public final class EntityDeathListener extends ListenerRequirement {
     public String getClassIdentifier() {
         return "Entity Death Listener";
     }
+
+    @Override
+    public BoosterType getType() {
+        return BoosterType.MOB_DROPS;
+    }
 }

@@ -71,4 +71,9 @@ public final class CropGrowthListener extends ListenerRequirement {
     public String getClassIdentifier() {
         return "Crop Growth Listener";
     }
+
+    @Override
+    public BoosterType getType() {
+        return BoosterType.CROP_GROWTH;
+    }
 }

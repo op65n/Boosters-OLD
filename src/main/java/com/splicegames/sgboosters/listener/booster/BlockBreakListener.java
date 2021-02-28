@@ -54,4 +54,9 @@ public final class BlockBreakListener extends ListenerRequirement {
     public String getClassIdentifier() {
         return "Block Break Listener";
     }
+
+    @Override
+    public BoosterType getType() {
+        return BoosterType.BLOCK_BREAK;
+    }
 }

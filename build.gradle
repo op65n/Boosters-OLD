@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.splicegames.sgboosters"
-version = "1.0.9-Release"
+version = "1.0.10-Release"
 
 repositories {
 	flatDir {

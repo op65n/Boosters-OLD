@@ -96,4 +96,9 @@ public final class FactionCropGrowthListener extends ListenerRequirement {
     public String getClassIdentifier() {
         return "Faction Crop Growth Listener";
     }
+
+    @Override
+    public BoosterType getType() {
+        return BoosterType.CROP_GROWTH;
+    }
 }

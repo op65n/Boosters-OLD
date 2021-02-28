@@ -113,4 +113,9 @@ public final class ShopGUIPlusListener extends ListenerRequirement {
     public String getClassIdentifier() {
         return "Shop GUI Plus Listener";
     }
+
+    @Override
+    public BoosterType getType() {
+        return BoosterType.SHOP_GUI_PLUS_SELL;
+    }
 }

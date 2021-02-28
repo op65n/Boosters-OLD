@@ -68,4 +68,9 @@ public final class McMMOGainListener extends ListenerRequirement {
     public String getClassIdentifier() {
         return "McMMO Gain Listener";
     }
+
+    @Override
+    public BoosterType getType() {
+        return BoosterType.MCMMO_GAIN;
+    }
 }

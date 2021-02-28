@@ -65,4 +65,9 @@ public final class ExperienceGainListener extends ListenerRequirement {
     public String getClassIdentifier() {
         return "Experience Gain Listener";
     }
+
+    @Override
+    public BoosterType getType() {
+        return BoosterType.EXPERIENCE_GAIN;
+    }
 }
