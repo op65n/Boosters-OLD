@@ -1,4 +1,4 @@
-package com.splicegames.sgboosters.command;
+package com.splicegames.sgboosters.command.impl;
 
 import com.github.frcsty.frozenactions.util.Replace;
 import com.splicegames.sgboosters.BoostersPlugin;

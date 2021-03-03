@@ -1,4 +1,4 @@
-package com.splicegames.sgboosters.command;
+package com.splicegames.sgboosters.command.impl;
 
 import com.splicegames.sgboosters.BoostersPlugin;
 import com.splicegames.sgboosters.command.menu.BoosterListMenu;

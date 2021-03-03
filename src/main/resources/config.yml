@@ -20,6 +20,9 @@ message:
   cancelled-booster: [
       "[&c&l| &cCancelled Booster!](hover: &b{formatted-type} &fBooster has been cancelled!)"
   ]
+  reloaded-plugin: [
+      "[&aSuccessfully reloaded the plugin configuration](hover: &7Took &a{time}ms.)"
+  ]
 
 booster-message:
   shop-sell-message: [

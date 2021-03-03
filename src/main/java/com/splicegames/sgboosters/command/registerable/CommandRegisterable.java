@@ -2,8 +2,9 @@ package com.splicegames.sgboosters.command.registerable;
 
 import com.splicegames.sgboosters.BoostersPlugin;
 import com.splicegames.sgboosters.booster.BoosterType;
-import com.splicegames.sgboosters.command.BoosterGiveCommand;
-import com.splicegames.sgboosters.command.BoosterListCommand;
+import com.splicegames.sgboosters.command.impl.BoosterGiveCommand;
+import com.splicegames.sgboosters.command.impl.BoosterListCommand;
+import com.splicegames.sgboosters.command.impl.BoosterReloadCommand;
 import com.splicegames.sgboosters.registry.Registerable;
 import com.splicegames.sgboosters.util.booster.TypeRegistry;
 import me.mattstudios.mf.base.CommandManager;
@@ -23,7 +24,8 @@ public final class CommandRegisterable implements Registerable {
         assignCompletions(completionHandler);
         commandManager.register(
                 new BoosterGiveCommand(plugin),
-                new BoosterListCommand(plugin)
+                new BoosterListCommand(plugin),
+                new BoosterReloadCommand(plugin)
         );
     }
 
