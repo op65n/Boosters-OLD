@@ -8,7 +8,6 @@ import com.splicegames.sgboosters.booster.component.BoosterTarget;
 import com.splicegames.sgboosters.util.time.TimeDisplay;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.mattstudios.mfgui.gui.components.ItemNBT;
-import net.kyori.adventure.text.Component;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -75,11 +74,11 @@ public final class BoosterVoucherBuilder {
         final ItemMeta meta = itemStack.getItemMeta();
 
         if (section != null) {
-            meta.displayName(Component.text(Color.translate(Replace.replaceString(
+            meta.setDisplayName(Color.translate(Replace.replaceString(
                     section.getString("display"),
                     "{formatted-type}", WordUtils.capitalize(this.type.name().replace("_", " ").toLowerCase()),
                     "{type}", this.type.name()
-            ))));
+            )));
 
             final StringBuilder builder = new StringBuilder();
             for (final String line : section.getStringList("lore")) {
@@ -93,7 +92,7 @@ public final class BoosterVoucherBuilder {
                 )).append("\n");
             }
 
-            meta.lore(Arrays.stream(builder.toString().split("\n")).map(Component::text).collect(Collectors.toList()));
+            meta.setLore(Arrays.stream(builder.toString().split("\n")).collect(Collectors.toList()));
 
             final ConfigurationSection enchantmentsSection = section.getConfigurationSection("enchantments");
             if (enchantmentsSection != null) {
