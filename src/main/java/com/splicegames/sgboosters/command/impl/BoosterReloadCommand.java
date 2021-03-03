@@ -28,7 +28,7 @@ public final class BoosterReloadCommand extends CommandBase {
         this.plugin.reloadConfig();
 
         Message.send(sender, Replace.replaceList(
-                this.plugin.getConfig().getStringList("reloaded-plugin"),
+                this.plugin.getConfig().getStringList("message.reloaded-plugin"),
                 "{time}", System.currentTimeMillis() - start
         ));
     }
