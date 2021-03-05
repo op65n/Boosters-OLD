@@ -32,13 +32,17 @@ public final class VoucherUseListener extends ListenerRequirement {
         if (ItemNBT.getNBTTag(item, "booster-type").length() == 0) return;
 
         final BoosterType type = BoosterType.valueOf(ItemNBT.getNBTTag(item, "booster-type"));
-        final BoosterTarget target = new BoosterTarget().of(BoosterTarget.getRecipientsFromString(ItemNBT.getNBTTag(item, "booster-target")));
+        final BoosterTarget target = new BoosterTarget().of(BoosterTarget.getRecipientsFromString(getBoosterTarget(ItemNBT.getNBTTag(item, "booster-target"), player)));
         final BoosterHolder holder = new BoosterHolder(player, type, target);
 
         holder.assignContents(Double.parseDouble(ItemNBT.getNBTTag(item, "booster-magnitude")), Long.parseLong(ItemNBT.getNBTTag(item, "booster-duration")));
         if (!this.boosterActivate.activateBooster(player, holder)) return;
 
         player.getInventory().setItemInMainHand(null);
+    }
+
+    private String getBoosterTarget(final String input, final Player player) {
+        return input.equalsIgnoreCase("all") ? "all" : player.getName();
     }
 
     public boolean isPluginInstalled() {

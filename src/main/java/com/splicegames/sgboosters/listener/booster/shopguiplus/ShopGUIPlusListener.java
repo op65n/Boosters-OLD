@@ -8,6 +8,7 @@ import com.splicegames.sgboosters.booster.data.BoosterStorage;
 import com.splicegames.sgboosters.booster.holder.BoosterHolder;
 import com.splicegames.sgboosters.listener.registerable.ListenerRequirement;
 import com.splicegames.sgboosters.message.Message;
+import com.splicegames.sgboosters.util.Task;
 import com.splicegames.sgboosters.util.time.TimeDisplay;
 import net.brcdev.shopgui.event.ShopPostTransactionEvent;
 import net.brcdev.shopgui.shop.ShopTransactionResult;
@@ -52,41 +53,44 @@ public final class ShopGUIPlusListener extends ListenerRequirement {
     }
 
     private void manageSellBooster(final Player player, final ShopTransactionResult result) {
-        final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.SHOP_GUI_PLUS_SELL, player.getUniqueId());
+        Task.async(() -> {
+            final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.SHOP_GUI_PLUS_SELL, player.getUniqueId());
 
-        holders.forEach(holder -> {
-            final BoosterContent content = holder.getContent();
-            final double sellPrice = result.getPrice();
-            final double sellBoosterAddition = sellPrice * content.getMagnitude() - sellPrice;
+            holders.forEach(holder -> {
+                final BoosterContent content = holder.getContent();
+                final double sellPrice = result.getPrice();
+                final double sellBoosterAddition = sellPrice * content.getMagnitude() - sellPrice;
 
-            this.economy.depositPlayer(player, sellBoosterAddition);
-            Message.send(player, Replace.replaceList(
-                    this.configuration.getStringList("booster-message.shop-sell-message"),
-                    "{magnitude}", content.getMagnitude(),
-                    "{amount}", this.format.format(sellBoosterAddition),
-                    "{owner}", holder.getOwner().getName(),
-                    "{duration}", TimeDisplay.getFormattedTime(holder.getContent().getDuration())
-            ));
+                this.economy.depositPlayer(player, sellBoosterAddition);
+                Message.send(player, Replace.replaceList(
+                        this.configuration.getStringList("booster-message.shop-sell-message"),
+                        "{magnitude}", content.getMagnitude(),
+                        "{amount}", this.format.format(sellBoosterAddition),
+                        "{owner}", holder.getOwner().getName(),
+                        "{duration}", TimeDisplay.getFormattedTime(holder.getContent().getDuration())
+                ));
+            });
         });
     }
 
-
     private void manageBuyBooster(final Player player, final ShopTransactionResult result) {
-        final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.SHOP_GUI_PLUS_DISCOUNT, player.getUniqueId());
+        Task.async(() -> {
+            final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.SHOP_GUI_PLUS_DISCOUNT, player.getUniqueId());
 
-        holders.forEach(holder -> {
-            final BoosterContent content = holder.getContent();
-            final double purchasePrice = result.getPrice();
-            final double purchaseBoosterAddition = purchasePrice * content.getMagnitude() - purchasePrice;
+            holders.forEach(holder -> {
+                final BoosterContent content = holder.getContent();
+                final double purchasePrice = result.getPrice();
+                final double purchaseBoosterAddition = purchasePrice * content.getMagnitude() - purchasePrice;
 
-            this.economy.depositPlayer(player, purchaseBoosterAddition);
-            Message.send(player, Replace.replaceList(
-                    this.configuration.getStringList("booster-message.shop-buy-message"),
-                    "{magnitude}", content.getMagnitude(),
-                    "{amount}", this.format.format(purchaseBoosterAddition),
-                    "{owner}", holder.getOwner().getName(),
-                    "{duration}", TimeDisplay.getFormattedTime(holder.getContent().getDuration())
-            ));
+                this.economy.depositPlayer(player, purchaseBoosterAddition);
+                Message.send(player, Replace.replaceList(
+                        this.configuration.getStringList("booster-message.shop-buy-message"),
+                        "{magnitude}", content.getMagnitude(),
+                        "{amount}", this.format.format(purchaseBoosterAddition),
+                        "{owner}", holder.getOwner().getName(),
+                        "{duration}", TimeDisplay.getFormattedTime(holder.getContent().getDuration())
+                ));
+            });
         });
     }
 

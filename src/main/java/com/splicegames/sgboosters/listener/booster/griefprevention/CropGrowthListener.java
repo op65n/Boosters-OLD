@@ -4,6 +4,7 @@ import com.splicegames.sgboosters.booster.BoosterType;
 import com.splicegames.sgboosters.booster.data.BoosterStorage;
 import com.splicegames.sgboosters.booster.holder.BoosterHolder;
 import com.splicegames.sgboosters.listener.registerable.ListenerRequirement;
+import com.splicegames.sgboosters.util.Task;
 import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.Bukkit;
@@ -28,22 +29,26 @@ public final class CropGrowthListener extends ListenerRequirement {
 
     @EventHandler
     public void onCropGrowth(final BlockGrowEvent event) {
-        final Block block = event.getBlock();
-        final Ageable state = (Ageable) event.getNewState().getBlockData();
-        final Location location = block.getLocation();
-        final Claim claim = this.griefPrevention.dataStore.getClaimAt(location, false, null);
-        if (claim == null) return;
+        Task.async(() -> {
+            final Block block = event.getBlock();
+            final Ageable state = (Ageable) event.getNewState().getBlockData();
+            final Location location = block.getLocation();
+            final Claim claim = this.griefPrevention.dataStore.getClaimAt(location, false, null);
+            if (claim == null) return;
 
-        final UUID identifier = claim.getOwnerID();
-        final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.CROP_GROWTH, identifier);
-        holders.forEach(holder -> {
-            event.setCancelled(true);
+            final UUID identifier = claim.getOwnerID();
+            final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.CROP_GROWTH, identifier);
+            holders.forEach(holder ->
+                    Task.queue(() -> {
+                        event.setCancelled(true);
 
-            final int newAge = state.getAge() + 1;
-            state.setAge(newAge >= state.getMaximumAge() ? state.getMaximumAge() : newAge);
-            block.setBlockData(state);
-            block.getState().update();
-            spawnParticles(block.getLocation());
+                        final int newAge = state.getAge() + 1;
+                        state.setAge(newAge >= state.getMaximumAge() ? state.getMaximumAge() : newAge);
+                        block.setBlockData(state);
+                        block.getState().update();
+                        spawnParticles(block.getLocation());
+                    })
+            );
         });
     }
 

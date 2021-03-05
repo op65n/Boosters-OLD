@@ -131,7 +131,8 @@ public final class BoosterListMenu {
                     lore
             ), event -> {
                 final Player player = (Player) event.getWhoClicked();
-                if (!player.getUniqueId().toString().equalsIgnoreCase(holder.getOwner().getUniqueId().toString())) return;
+                if (!player.getUniqueId().toString().equalsIgnoreCase(holder.getOwner().getUniqueId().toString()))
+                    return;
 
                 plugin.getBoosterStorage().removeBooster(holder);
 
@@ -165,21 +166,6 @@ public final class BoosterListMenu {
 
         item.setItemMeta(meta);
         return item;
-    }
-
-    public void initializeUpdateInterval() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (menu.getInventory().getViewers().isEmpty()) {
-                    System.out.println("No viewers, cancelled updating");
-                    cancel();
-                    return;
-                }
-
-                setBoosterItems(menu, plugin.getBoosterStorage().getBoostersApplicableToUser(player.getUniqueId())).forEach(menu::addItem);
-            }
-        }.runTaskTimer(plugin, 20L, 20L);
     }
 
     public PaginatedGui getMenu() {

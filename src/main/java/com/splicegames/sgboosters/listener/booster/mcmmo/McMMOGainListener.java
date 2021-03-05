@@ -10,6 +10,7 @@ import com.splicegames.sgboosters.booster.data.BoosterStorage;
 import com.splicegames.sgboosters.booster.holder.BoosterHolder;
 import com.splicegames.sgboosters.listener.registerable.ListenerRequirement;
 import com.splicegames.sgboosters.message.Message;
+import com.splicegames.sgboosters.util.Task;
 import com.splicegames.sgboosters.util.time.TimeDisplay;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -30,27 +31,29 @@ public final class McMMOGainListener extends ListenerRequirement {
 
     @EventHandler
     public void onMcMMOGain(final McMMOPlayerXpGainEvent event) {
-        final Player player = event.getPlayer();
-        final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.MCMMO_GAIN, player.getUniqueId());
+        Task.async(() -> {
+            final Player player = event.getPlayer();
+            final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.MCMMO_GAIN, player.getUniqueId());
 
-        holders.forEach(holder -> {
-            final BoosterContent content = holder.getContent();
+            holders.forEach(holder -> {
+                final BoosterContent content = holder.getContent();
 
-            final float level = event.getRawXpGained();
-            final float boosterAddition = (float) (level * content.getMagnitude() - level);
+                final float level = event.getRawXpGained();
+                final float boosterAddition = (float) (level * content.getMagnitude() - level);
 
-            UserManager.getPlayer(player).setSkillXpLevel(
-                    event.getSkill(),
-                    boosterAddition
-            );
+                UserManager.getPlayer(player).addXp(
+                        event.getSkill(),
+                        boosterAddition
+                );
 
-            Message.send(player, Replace.replaceList(
-                    this.configuration.getStringList("booster-message.mcmmo-experience-gain-message"),
-                    "{magnitude}", content.getMagnitude(),
-                    "{amount}", boosterAddition,
-                    "{owner}", holder.getOwner().getName(),
-                    "{duration}", TimeDisplay.getFormattedTime(holder.getContent().getDuration())
-            ));
+                Message.send(player, Replace.replaceList(
+                        this.configuration.getStringList("booster-message.mcmmo-experience-gain-message"),
+                        "{magnitude}", content.getMagnitude(),
+                        "{amount}", boosterAddition,
+                        "{owner}", holder.getOwner().getName(),
+                        "{duration}", TimeDisplay.getFormattedTime(holder.getContent().getDuration())
+                ));
+            });
         });
     }
 

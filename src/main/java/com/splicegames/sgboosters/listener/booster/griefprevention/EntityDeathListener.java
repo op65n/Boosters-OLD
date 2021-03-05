@@ -5,6 +5,7 @@ import com.splicegames.sgboosters.booster.component.BoosterContent;
 import com.splicegames.sgboosters.booster.data.BoosterStorage;
 import com.splicegames.sgboosters.booster.holder.BoosterHolder;
 import com.splicegames.sgboosters.listener.registerable.ListenerRequirement;
+import com.splicegames.sgboosters.util.Task;
 import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.Bukkit;
@@ -31,22 +32,24 @@ public final class EntityDeathListener extends ListenerRequirement {
 
     @EventHandler
     public void onEntityDeath(final EntityDeathEvent event) {
-        final Entity entity = event.getEntity();
-        final Location location = entity.getLocation();
+        Task.async(() -> {
+            final Entity entity = event.getEntity();
+            final Location location = entity.getLocation();
 
-        Claim claim = this.griefPrevention.dataStore.getClaimAt(location, false, null);
-        if (claim == null) return;
+            Claim claim = this.griefPrevention.dataStore.getClaimAt(location, false, null);
+            if (claim == null) return;
 
-        final UUID identifier = claim.getOwnerID();
-        final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.MOB_DROPS, identifier);
-        holders.forEach(holder -> {
-            final BoosterContent content = holder.getContent();
-            final double magnitude = content.getMagnitude();
+            final UUID identifier = claim.getOwnerID();
+            final Set<BoosterHolder> holders = this.storage.getHolderOfTypeForUser(BoosterType.MOB_DROPS, identifier);
+            holders.forEach(holder -> {
+                final BoosterContent content = holder.getContent();
+                final double magnitude = content.getMagnitude();
 
-            final List<ItemStack> drops = event.getDrops();
-            if (drops.size() == 0) return;
+                final List<ItemStack> drops = event.getDrops();
+                if (drops.size() == 0) return;
 
-            manageDrops(magnitude, drops);
+                Task.queue(() -> manageDrops(magnitude, drops));
+            });
         });
     }
 
